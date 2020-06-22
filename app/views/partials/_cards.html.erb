@@ -1,0 +1,20 @@
+<div class="container">
+  <h1 class='display-4 my-5 text-center'><%= title %></h1>
+  <% if !movies || movies == [] %>
+    <h2 class='my-5 text-center'>No results</h2>
+  <% else %>
+    <div class="row row-cols-1 row-cols-md-4 row-cols-lg-5 ">
+      <% movies.each do |movie| %>
+        <%= link_to movie, class: "col-md-4 mb-4 card-hover" do %>
+            <div class="card bg-dark h-100" >
+              <%# if failed to load image, load Unsplash image instead %>
+              <%= image_tag movie[:poster], class: "card-img-top p-3", alt: "movie poster image", width: 300, onerror: "this.onerror=null;this.src='https://images.unsplash.com/photo-1440404653325-ab127d49abc1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80';" %>
+              <div class="card-body">
+                <h5 class="card-title"><%= movie[:title] %></h5>
+              </div>
+            </div>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+</div>

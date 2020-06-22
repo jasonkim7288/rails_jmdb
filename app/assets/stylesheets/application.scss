@@ -37,3 +37,10 @@ a {
     color: black !important;
   }
 }
+
+.card-hover {
+  transition: all .2s;
+  &:hover {
+    transform: scale(1.05);
+  }
+}
