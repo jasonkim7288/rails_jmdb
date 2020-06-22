@@ -27,7 +27,7 @@ class MoviesController < ApplicationController
         # req_url = "http://www.omdbapi.com/?apikey=#{Rails.application.credentials.dig(:omdb, :api_key)}&s=#{movie[:omdb_id]}"
 
         # for display
-        @movies.unshift(movie)
+        @movies.push(movie)
 
         # for store to cookie
         if @@movies.filter {|m| m[:omdb_id] == movie[:omdb_id]} == []
