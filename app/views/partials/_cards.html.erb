@@ -6,9 +6,9 @@
     <div class="row row-cols-1 row-cols-md-4 row-cols-lg-5 ">
       <% movies.each do |movie| %>
         <%= link_to movie, class: "col-md-4 mb-4 card-hover" do %>
-            <div class="card bg-dark h-100" >
+            <div class="card bg-dark h-100 rounded-0" >
               <%# if failed to load image, load Unsplash image instead %>
-              <%= image_tag movie[:poster], class: "card-img-top p-3", alt: "movie poster image", width: 300, onerror: "this.onerror=null;this.src='https://images.unsplash.com/photo-1581905764498-f1b60bae941a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=80';" %>
+              <%= image_tag movie[:poster], class: "card-img-top rounded-0", alt: "movie poster image", width: 300, onerror: "this.onerror=null;this.src='https://images.unsplash.com/photo-1581905764498-f1b60bae941a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=80';" %>
               <div class="card-body">
                 <h5 class="card-title"><%= movie[:title] %></h5>
               </div>
