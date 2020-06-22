@@ -13,3 +13,27 @@
  *= require_tree .
  *= require_self
  */
+
+@import 'variables';
+
+body {
+  background-color: black;
+  color: white;
+}
+
+a {
+  color: white !important;
+  text-decoration: none !important;
+}
+
+#nav-margin {
+  background-color: $navbar-back-color;
+  height: 58px;
+}
+
+.navbar {
+  background-color: $navbar-back-color;
+  .navbar-brand {
+    color: black !important;
+  }
+}
