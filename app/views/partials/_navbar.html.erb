@@ -1,0 +1,37 @@
+<nav class="fixed-top navbar navbar-expand-lg navbar-dark" style="background-color: #202020;" id="nav-id">
+  <a class="navbar-brand btn btn-warning font-weight-bold" href=<%= root_path %>>JMDb</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <%= link_to 'Pokemons', pokemons_path, class: "nav-link #{"text-warning" if controller_name == "pokemons"}" %>
+      </li>
+      <li class="nav-item">
+        <%= link_to 'Celebrities', celebrities_path, class: "nav-link #{"text-warning" if controller_name == "celebrities"}" %>
+      </li>
+    </ul>
+
+    <% case controller_name %>
+    <% when "pokemons" %>
+      <%= form_with url: pokemon_search_path, method: :get, class: "form-inline my-2 my-lg-0", local: true do |f| %>
+        <div id= "search-data-pokemon" class="form-search search-data" data-names="<%= @names.to_json %>">
+          <%= text_field_tag :search_text_pokemon, nil, autocomplete: :off, autofocus: :true, class: "form-control search-input my-1 my-md-0", style: "min-width: 250px; max-width: 250px", placeholder: "Search by Pokemon name..." %>
+          <%= submit_tag "Search", class: "btn btn-primary button-home" %>
+        </div>
+      <% end %>
+    <% when "celebrities" %>
+      <%= form_with url: celebrity_search_path, method: :get, class: "form-inline my-2 my-lg-0", local: true do |f| %>
+        <div id= "search-data-celebrity" class="form-search search-data" data-names="<%= @names.to_json %>">
+          <%= text_field_tag :search_text_celebrity, nil, autocomplete: :off, autofocus: :true, class: "form-control search-input my-1 my-md-0", style: "min-width: 250px; max-width: 250px", placeholder: "Search by Celebrity name..." %>
+          <%= submit_tag "Search", class: "btn btn-primary button-home" %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</nav>
+
+<div id="nav-margin">
+</div>
