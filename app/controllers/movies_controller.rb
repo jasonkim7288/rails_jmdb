@@ -21,7 +21,7 @@ class MoviesController < ApplicationController
         movie[:title] = result_movie["Title"]
         movie[:omdb_id] = result_movie["imdbID"]
         movie[:type] = result_movie["Type"]
-        movie[:poster] = (result_movie["Poster"] == "N/A") ? "https://images.unsplash.com/photo-1440404653325-ab127d49abc1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80" : result_movie["Poster"]
+        movie[:poster] = (result_movie["Poster"] == "N/A") ? "https://images.unsplash.com/photo-1581905764498-f1b60bae941a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=80" : result_movie["Poster"]
 
         # get more information for each imdbID
         # req_url = "http://www.omdbapi.com/?apikey=#{Rails.application.credentials.dig(:omdb, :api_key)}&s=#{movie[:omdb_id]}"
