@@ -52,3 +52,4 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'httparty'
 
 gem 'faker'
+gem 'will_paginate-bootstrap4'
