@@ -1,4 +1,6 @@
 class MoviesController < ApplicationController
+  before_action :set_movie, only: [:show, :edit, :update, :destroy]
+
   CAROUSEL_NUM = 5
 
   def search
@@ -70,5 +72,14 @@ class MoviesController < ApplicationController
   end
 
   def destroy
+    @movie.destroy
+    redirect_to movies_path
   end
+
+  private
+  # Use callbacks to share common setup or constraints between actions.
+  def set_movie
+    @movie = Movie.find(params[:id])
+  end
+
 end

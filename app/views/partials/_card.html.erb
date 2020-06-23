@@ -6,7 +6,7 @@
             <div class="card bg-dark h-100 rounded-0" >
               <%= image_tag movie[:poster], class: "card-img-top rounded-0", alt: "movie poster image", width: 300, onerror: "this.onerror=null;this.src='https://images.unsplash.com/photo-1581905764498-f1b60bae941a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=80';" %>
               <div class="card-body">
-                <h5 class="card-title"><%= movie[:title] %></h5>
+                <h5 class="card-title font-weight-normal"><%= movie[:title] %></h5>
               </div>
             </div>
         <% end %>
