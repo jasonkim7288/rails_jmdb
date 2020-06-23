@@ -9,8 +9,6 @@ class MoviesController < ApplicationController
 
     # make omdb api url
     req_url = "http://www.omdbapi.com/?apikey=#{Rails.application.credentials.dig(:omdb, :api_key)}&s=#{searchable_name}"
-    puts "++++++++++++++++++++++"
-    puts req_url
 
     # get request to omdb api
     response = HTTParty.get(req_url)
