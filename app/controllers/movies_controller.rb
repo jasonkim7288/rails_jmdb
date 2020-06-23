@@ -1,4 +1,6 @@
 class MoviesController < ApplicationController
+  CAROUSEL_NUM = 5
+
   def search
     # convert searching text to url query format
     searchable_name = CGI.escape(params[:search_text_movie])
@@ -18,6 +20,7 @@ class MoviesController < ApplicationController
     if json_result["Response"] == "True"
       result_movies = json_result["Search"]
       result_movies.each do |result_movie|
+        next if result_movie["Poster"] == "N/A"
         movie = Movie.new
         movie.title = result_movie["Title"]
         movie.omdb_id = result_movie["imdbID"]
@@ -38,7 +41,17 @@ class MoviesController < ApplicationController
   end
 
   def index
-    @movies = Movie.all.order("updated_at DESC")
+    @movies = Movie.all.order("omdb_id DESC")
+    # pick up 15 random(for now) movies and use them for Carousel
+    if @movies.count >= CAROUSEL_NUM * 3
+      random_movies_total = Movie.all.order("RANDOM()").limit(CAROUSEL_NUM * 3)
+      @random_movies = Array.new(3) {Array.new(CAROUSEL_NUM)}
+      random_movies_total.each_slice(CAROUSEL_NUM).with_index do |mvs, i|
+        @random_movies[i] = mvs
+      end
+    else
+      @random_movies = nil
+    end
   end
 
   def show
