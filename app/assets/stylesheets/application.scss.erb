@@ -30,6 +30,10 @@
   max-width: 1000px;
 }
 
+.top-margin {
+  margin-top: 58px;
+}
+
 body {
   background-color: black;
   color: white;
@@ -59,11 +63,11 @@ a {
 .card-hover {
   transition: all .2s;
   &:hover {
-    transform: scale(1.05);
+    transform: scale(1.01);
   }
   .card {
     background-color: #181818 !important;
-    width: 180px;
+    width: 160px;
     .card-img-top {
       width: 100%;
       height: 274px;
@@ -89,5 +93,11 @@ a {
     padding-top: 80px;
     padding-left: 100px !important;
     padding-right: 100px !important;
+  }
+}
+
+.fade-effect {
+  &:hover {
+    opacity: 0.5;
   }
 }

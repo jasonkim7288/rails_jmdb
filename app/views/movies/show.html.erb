@@ -1,2 +1,54 @@
-<h1>Movies#show</h1>
-<p>Find me in app/views/movies/show.html.erb</p>
+<div class="container top-margin" style="background: #202020;">
+  <%# add favourite, title, rating, etc %>
+  <div class="row pt-3">
+    <div class="col-2 col-lg-1">
+      <%= link_to "#" do %>
+        <div class="text-center fade-effect" style="font-size: 3em" data-toggle="tooltip" data-placement="top" title="Click to add to Watchlist"><i class="far fa-bookmark"></i></div>
+      <% end %>
+    </div>
+    <div class="col-10 col-lg-11">
+      <div class="row">
+        <div class="col-12 col-lg-8">
+          <h1><%= @movie.title %></h1>
+        </div>
+        <div class="col-6 col-lg-2" style="font-size: 2em" >
+          <span><i class="fas fa-star mr-2 text-warning"></i></span><span><%= @movie.imdb_rating %></span>
+        </div>
+        <div class="col-6 col-lg-2" style="font-size: 2em" >
+          <%= link_to "#", class: "fade-effect" do %>
+            <span><i class="far fa-star mr-2 text-warning"></i></span><span class="align-middle" style="font-size: 0.5em">Rate this</span>
+          <% end %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <p class="font-weight-lighter" style="font-size: 0.9rem; color: #D0D0D0">
+            <%= "#{@movie.rated}" %>
+            <span class="px-2">|</span>
+            <%= "#{@movie.runtime}" %>
+            <span class="px-2">|</span>
+            <%= "#{@movie.category}" %>
+            <span class="px-2">|</span>
+            <%= "#{@movie.genre}" %>
+            <span class="px-2 text-wrap">|</span>
+            <%= "#{@movie.released.strftime('%e %B %Y')}" %>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <%# add poster, %>
+  <div class="row">
+    <div class="col-3 px-0">
+      <%= image_tag @movie.poster, class:"w-100"%>
+    </div>
+    <div class="col-9 px-4">
+      <p style="font-size: 1.1em"><%= @movie.plot %></p>
+      <p><strong>Director : </strong><%= @movie.director %></p>
+      <p><strong>Actors : </strong><%= @movie.actors %></p>
+      <%= link_to '+ Add to Watchlist', "#", class: "btn btn-primary" %>
+    </div>
+  </div>
+</div>
+
+
