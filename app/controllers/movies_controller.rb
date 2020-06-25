@@ -18,17 +18,42 @@ class MoviesController < ApplicationController
 
     @movies = []
     if json_result["Response"] == "True"
-      result_movies = json_result["Search"]
+      result_movies = [*json_result["Search"]]
       result_movies.each do |result_movie|
         next if result_movie["Poster"] == "N/A"
+        next if result_movie["Type"] != "movie" && result_movie["Type"] != "series"
         movie = Movie.new
         movie.title = result_movie["Title"]
         movie.omdb_id = result_movie["imdbID"]
         movie.category = result_movie["Type"]
         movie.poster = (result_movie["Poster"] == "N/A") ? "https://images.unsplash.com/photo-1581905764498-f1b60bae941a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=80" : result_movie["Poster"]
 
-        # get more information for each imdbID
-        # req_url = "http://www.omdbapi.com/?apikey=#{Rails.application.credentials.dig(:omdb, :api_key)}&s=#{movie[:omdb_id]}"
+        # get more information for each omdbID
+        req_url = "http://www.omdbapi.com/?apikey=#{Rails.application.credentials.dig(:omdb, :api_key)}&i=#{movie[:omdb_id]}"
+        response = HTTParty.get(req_url)
+        json_result = JSON.parse(response.body, { symbolized_names: true})
+        puts "******************************"
+        puts req_url
+        if json_result["Response"] == "True"
+          movie.released = json_result["Released"]
+          movie.rated = json_result["Rated"]
+          movie.runtime = json_result["Runtime"]
+          movie.genre = json_result["Genre"]
+          movie.director = json_result["Director"]
+          movie.actors = json_result["Actors"]
+          movie.plot = json_result["Plot"]
+          movie.imdb_rating = 0
+          # If there is Internet Movie Datebase rating, store it
+          if json_result["Ratings"]
+            rating_info = json_result["Ratings"].find {|m| m["Source"] == "Internet Movie Database"}
+            if rating_info
+              movie.imdb_rating = rating_info["Value"].split("/")[0].to_f.round(1)
+            end
+          end
+          movie.user_rating = 0
+        else
+          movie.released = result_movie["Year"]
+        end
 
         # for display
         @movies.push(movie)
@@ -38,10 +63,13 @@ class MoviesController < ApplicationController
         end
       end
     end
+
+    p @movies
+
   end
 
   def index
-    @movies = Movie.all.order("omdb_id DESC")
+    @movies = Movie.all.order("released DESC")
     # pick up 15 random(for now) movies and use them for Carousel
     if @movies.count >= CAROUSEL_NUM * 3
       random_movies_total = Movie.all.order("RANDOM()").limit(CAROUSEL_NUM * 3)

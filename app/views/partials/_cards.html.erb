@@ -1,11 +1,11 @@
-<div class="container">
-  <h1 class='display-4 my-5 text-center'><%= title %></h1>
+<div class="main-width mx-auto px-3">
+  <h1 class='my-5 text-warning text-weight-bold'><%= title %></h1>
   <% if !movies || movies == [] %>
     <h2 class='my-5 text-center'>No results</h2>
   <% else %>
-    <div class="row row-cols-1 row-cols-md-4 row-cols-lg-5 ">
+    <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 row-cols-xl-6 ">
       <% movies.each do |movie| %>
-        <div class= "col-md-4 mb-4 card-hover">
+        <div class= "col mb-4 card-hover">
           <div class="card bg-dark h-100 rounded-0" >
             <%# if failed to load image, load Unsplash image instead %>
             <%= link_to movie do %>
@@ -13,9 +13,9 @@
             <% end %>
             <div class="card-body">
               <%= link_to movie do %>
-                <h6 class="card-title font-weight-normal"><%= movie.title %></h6>
+                <h6 class="card-title font-weight-normal"style="min-height: 60px; max-height: 60px; overflow: hidden;"><%= movie.title %></h6>
               <% end %>
-              <%= link_to "x", movie, method: :delete, class: "text-danger", width: 300 %>
+              <%= link_to "x", movie, method: :delete, class: "text-danger delete-movie", width: 300 %>
             </div>
           </div>
         </div>
