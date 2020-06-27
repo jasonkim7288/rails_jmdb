@@ -31,11 +31,9 @@ class MoviesController < ApplicationController
           movie.poster = (result_movie["Poster"] == "N/A") ? "https://images.unsplash.com/photo-1581905764498-f1b60bae941a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=80" : result_movie["Poster"]
 
           # get more information for each omdbID
-          req_url = "http://www.omdbapi.com/?apikey=#{Rails.application.credentials.dig(:omdb, :api_key)}&i=#{movie[:omdb_id]}"
+          req_url = "http://www.omdbapi.com/?apikey=#{Rails.application.credentials.dig(:omdb, :api_key)}&i=#{movie[:omdb_id]}&plot=full"
           response = HTTParty.get(req_url)
           json_result = JSON.parse(response.body, { symbolized_names: true})
-          puts "******************************"
-          puts req_url
           if json_result["Response"] == "True"
             movie.released = json_result["Released"] == "N/A" ? DateTime.new((json_result["Year"].split("–")[0]).to_i, 6, 1) : DateTime.parse(json_result["Released"])
             movie.rated = json_result["Rated"] == "N/A" ? "ALL" : json_result["Rated"]
