@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get 'comments/create'
+  get 'comments/update'
+  get 'comments/destroy'
   get "movies/search", to: "movies#search", as: "search_movie"
   get 'movies', to: "movies#index", as: "movies"
   get 'movies/new', to: "movies#new", as: "new_movie"
@@ -9,5 +12,9 @@ Rails.application.routes.draw do
   delete 'movies/:id', to: "movies#destroy"
 
   root "movies#index"
+
+  resources :movies do
+    resources :comments
+  end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

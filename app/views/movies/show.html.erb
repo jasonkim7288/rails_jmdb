@@ -49,6 +49,8 @@
       <%= link_to '+ Add to Watchlist', "#", class: "btn btn-primary" %>
     </div>
   </div>
+
+  <%= render 'partials/comments', movie: @movie, comments: @comments, comment: @comment%>
 </div>
 
 

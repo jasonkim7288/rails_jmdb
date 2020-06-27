@@ -1,0 +1,23 @@
+<%= render 'partials/comment_form', movie: movie, comment: comment%>
+
+<div class="row justify-content-center">
+  <% comments.each do |cmt| %>
+    <% if cmt.id %>
+      <div class="card my-3 col-11 col-md-11" style="background-color: #181818;">
+        <div class="card-body">
+          <h6 class="card-subtitle mb-2">
+            <span class="text-info">User Name</span> <span class="font-weight-light ml-5" style="font-size: 0.9em"><%= cmt.created_at.strftime('%d/%m/%Y %l:%M %p') %></span>
+          </h6>
+          <p class="card-text">
+            <%= cmt.body %>
+          </p>
+          <%# if user_signed_in? && current_user == comment.user %>
+            <p class="text-right mb-0">
+              <%= link_to 'Delete', [cmt.movie, cmt], method: :delete, class: "text-danger", data: { confirm: 'Are you sure?' } %>
+            </p>
+          <%# end %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>

@@ -8,13 +8,13 @@
     </ol>
     <div class="carousel-inner">
       <div class="carousel-item active" data-interval="900000">
-        <%= render 'partials/card', movies: @random_movies[0] %>
+        <%= render 'partials/header_cards', movies: @random_movies[0] %>
       </div>
       <div class="carousel-item" data-interval="6000">
-        <%= render 'partials/card', movies: @random_movies[1]  %>
+        <%= render 'partials/header_cards', movies: @random_movies[1]  %>
       </div>
       <div class="carousel-item" data-interval="6000">
-        <%= render 'partials/card', movies: @random_movies[2]  %>
+        <%= render 'partials/header_cards', movies: @random_movies[2]  %>
       </div>
     </div>
     <a class="carousel-control-prev" href="#carouselExampleInterval" role="button" data-slide="prev">

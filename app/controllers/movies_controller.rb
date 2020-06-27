@@ -62,13 +62,10 @@ class MoviesController < ApplicationController
         @movies.push(movie)
       end
     end
-
-    p @movies
-
   end
 
   def index
-    @movies = Movie.all.order("released DESC")
+    @movies = Movie.all.order("imdb_rating DESC")
     # pick up 15 random(for now) movies and use them for Carousel
     if @movies.count >= CAROUSEL_NUM * 3
       random_movies_total = Movie.all.order("RANDOM()").limit(CAROUSEL_NUM * 3)
@@ -82,9 +79,8 @@ class MoviesController < ApplicationController
   end
 
   def show
-  end
-
-  def new
+    @comment = Comment.new
+    @comments = @movie.comments.order("updated_at DESC")
   end
 
   def edit
