@@ -53,3 +53,4 @@ gem 'httparty'
 
 gem 'faker'
 gem 'will_paginate-bootstrap4'
+gem 'devise'

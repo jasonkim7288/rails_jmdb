@@ -20,8 +20,30 @@
       </li>
     </ul>
 
-    <%= link_to 'Log in', "#", class: "mr-5" %>
-    <%= link_to 'Sign up', "#", class: "" %>
+    <ul class="navbar-nav ml-4">
+        <% if user_signed_in? %>
+            <li class="nav-item">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <%= current_user.full_name %>
+                    </a>
+                    <div class="dropdown-menu dropdown-dark" aria-labelledby="navbarDropdown">
+                        <%= link_to 'My Movies', "#", class: "dropdown-item dropdown-dark" %>
+                        <%= link_to 'My Ratings', "#", class: "dropdown-item dropdown-dark" %>
+                        <div class="dropdown-divider"></div>
+                        <%= link_to 'Log out', destroy_user_session_path, method: :delete, class: "dropdown-item" %>
+                    </div>
+                </li>
+            </li>
+        <% else %>
+            <li class="nav-item">
+                <%= link_to 'Log in', new_user_session_path, class: "nav-link" %>
+            </li>
+            <li class="nav-item">
+                <%= link_to 'Sign up', new_user_registration_path, class: "nav-link" %>
+            </li>
+        <% end %>
+    </ul>
   </div>
 </nav>
 

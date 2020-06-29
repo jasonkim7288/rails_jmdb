@@ -15,6 +15,7 @@
  */
 
 @import 'variables';
+@import 'mixins';
 
 * {
   padding: 0;
@@ -45,19 +46,28 @@ a {
 }
 
 #nav-margin {
+  @include set-nav-bg-dark;
   position: fixed;
   top: 0px;
-  background-color: $navbar-back-color;
   width: 100%;
   height: 58px;
   z-index: 10;
 }
 
 .navbar {
-  background-color: $navbar-back-color;
+  @include set-nav-bg-dark;
   .navbar-brand {
     color: black !important;
   }
+  .dropdown-item {
+    &:hover {
+        background-color: #000000C0 !important;
+    }
+  }
+}
+
+.dropdown-dark {
+  @include set-nav-bg-dark;
 }
 
 .movie-card {
