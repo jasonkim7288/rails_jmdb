@@ -2,8 +2,14 @@
   <%# add favourite, title, rating, etc %>
   <div class="row pt-3">
     <div class="col-2 col-lg-1">
-      <%= link_to "#" do %>
-        <div class="text-center fade-effect" style="font-size: 3em" data-toggle="tooltip" data-placement="top" title="Click to add to Watchlist"><i class="far fa-bookmark"></i></div>
+      <% if user_signed_in? %>
+        <%= link_to "#" do %>
+          <div class="text-center fade-effect" style="font-size: 3em" data-toggle="tooltip" data-placement="top" title="Click to add to Watchlist"><i class="far fa-bookmark"></i></div>
+        <% end %>
+      <% else %>
+        <%= link_to "#" do %>
+          <div class="text-center fade-effect" style="font-size: 3em" data-toggle="tooltip" data-placement="top" title="Click to add to Watchlist"><i class="far fa-bookmark"></i></div>
+        <% end %>
       <% end %>
     </div>
     <div class="col-10 col-lg-11">
