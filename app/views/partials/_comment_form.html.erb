@@ -20,6 +20,10 @@
   </div>
 
   <div class="actions">
-    <%= form.submit class: "btn btn-success btn-sm" %>
+    <% if user_signed_in? %>
+      <%= form.submit class: "btn btn-success btn-sm" %>
+    <% else %>
+      <%= link_to 'Create Comment', new_user_session_path, class: "btn btn-primary" %>
+    <% end %>
   </div>
 <% end %>

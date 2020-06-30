@@ -82,6 +82,7 @@ class MoviesController < ApplicationController
   def show
     @comment = Comment.new
     @comments = @movie.comments.order("updated_at DESC")
+    @watchlist_added = (user_signed_in? && current_user.movies.find_by_id(@movie.id)) ? true : false
   end
 
   def edit

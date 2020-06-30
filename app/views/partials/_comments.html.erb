@@ -11,11 +11,11 @@
           <p class="card-text">
             <%= cmt.body %>
           </p>
-          <%# if user_signed_in? && current_user == comment.user %>
+          <% if user_signed_in? && current_user == comment.user %>
             <p class="text-right mb-0">
               <%= link_to 'Delete', [cmt.movie, cmt], method: :delete, class: "text-danger", data: { confirm: 'Are you sure?' } %>
             </p>
-          <%# end %>
+          <% end %>
         </div>
       </div>
     <% end %>
