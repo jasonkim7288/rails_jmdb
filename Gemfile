@@ -54,3 +54,4 @@ gem 'httparty'
 gem 'faker'
 gem 'will_paginate-bootstrap4'
 gem 'devise'
+gem "stimulus_reflex", "~> 3.2"

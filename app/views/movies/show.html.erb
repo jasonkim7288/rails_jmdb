@@ -3,11 +3,13 @@
   <div class="row pt-3">
     <div class="col-2 col-lg-1">
       <% if user_signed_in? %>
-        <%= link_to "#" do %>
-          <div class="text-center fade-effect" style="font-size: 3em" data-toggle="tooltip" data-placement="top" title="Click to add to Watchlist"><i class="far fa-bookmark"></i></div>
+        <%= link_to "#", data: { reflex: "click->MoviesReflex#add_to_watchlist", user_id: current_user.id, movie_id: @movie.id } do %>
+          <div class="text-center fade-effect" style="font-size: 3em" data-toggle="tooltip" data-placement="top" title="Click to add to Watchlist" >
+            <i class="<%= current_user.movies.find_by_id(@movie.id) == nil ? "far" : "fas"%> fa-bookmark"></i>
+          </div>
         <% end %>
       <% else %>
-        <%= link_to "#" do %>
+        <%= link_to new_user_session_path do %>
           <div class="text-center fade-effect" style="font-size: 3em" data-toggle="tooltip" data-placement="top" title="Click to add to Watchlist"><i class="far fa-bookmark"></i></div>
         <% end %>
       <% end %>
@@ -52,7 +54,11 @@
       <p style="font-size: 1.1em"><%= @movie.plot %></p>
       <p><strong>Director : </strong><%= @movie.director %></p>
       <p><strong>Actors : </strong><%= @movie.actors %></p>
-      <%= link_to '+ Add to Watchlist', "#", class: "btn btn-primary" %>
+      <% if user_signed_in? %>
+        <%= link_to '+ Add to Watchlist', "#", class: "btn btn-primary" %>
+      <% else %>
+        <%= link_to '+ Add to Watchlist', "#", class: "btn btn-primary" %>
+      <% end %>
     </div>
   </div>
 
