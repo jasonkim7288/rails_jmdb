@@ -31,7 +31,7 @@
             <span class="px-2">|</span>
             <%= "#{@movie.genre}" %>
             <span class="px-2 text-wrap">|</span>
-            <%= "#{@movie.released.strftime('%e %B %Y')}" %>
+            <%= "#{@movie.released.localtime.strftime('%e %B %Y')}" %>
           </p>
         </div>
       </div>
