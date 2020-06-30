@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_29_075109) do
+ActiveRecord::Schema.define(version: 2020_06_30_034046) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,6 +41,25 @@ ActiveRecord::Schema.define(version: 2020_06_29_075109) do
     t.decimal "imdb_rating"
   end
 
+  create_table "movies_users", force: :cascade do |t|
+    t.bigint "movie_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["movie_id"], name: "index_movies_users_on_movie_id"
+    t.index ["user_id"], name: "index_movies_users_on_user_id"
+  end
+
+  create_table "ratings", force: :cascade do |t|
+    t.decimal "user_rating"
+    t.bigint "user_id", null: false
+    t.bigint "movie_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["movie_id"], name: "index_ratings_on_movie_id"
+    t.index ["user_id"], name: "index_ratings_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "full_name", default: "", null: false
@@ -55,4 +74,8 @@ ActiveRecord::Schema.define(version: 2020_06_29_075109) do
   end
 
   add_foreign_key "comments", "movies"
+  add_foreign_key "movies_users", "movies"
+  add_foreign_key "movies_users", "users"
+  add_foreign_key "ratings", "movies"
+  add_foreign_key "ratings", "users"
 end
