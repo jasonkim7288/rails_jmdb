@@ -11,6 +11,21 @@
             <%= link_to movie do %>
               <%= image_tag movie[:poster], class: "card-img-top rounded-0", alt: "movie poster image", onerror: "this.onerror=null;this.src='https://images.unsplash.com/photo-1581905764498-f1b60bae941a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=80';" %>
             <% end %>
+
+            <% if user_signed_in? %>
+              <%= link_to "#", data: { reflex: "click->MoviesReflex#add_to_watchlist", user_id: current_user.id, movie_id: movie.id }, class: "icon-shadow" do %>
+                <div class="text-center fade-effect" style="font-size: 2.5em;" data-toggle="tooltip" data-placement="top" title="<%= (user_signed_in? && current_user.movies.find_by_id(movie.id)) ? "Click to remove from Watchlist" : "Click to add to Watchlist"%>" >
+                  <i class="<%= (user_signed_in? && current_user.movies.find_by_id(movie.id)) ? "fas" : "far" %> fa-bookmark"></i>
+                </div>
+              <% end %>
+            <% else %>
+              <%= link_to new_user_session_path do %>
+                <div class="text-center fade-effect icon-shadow" style="font-size: 2.5em" data-toggle="tooltip" data-placement="top" title="Click to add to Watchlist"><i class="far fa-bookmark"></i></div>
+              <% end %>
+            <% end %>
+
+
+
             <div class="card-body p-2">
               <%= link_to movie do %>
                 <p style="font-size: 0.9em"><span><i class="fas fa-star mr-2 text-warning"></i></span><span><%= movie.imdb_rating %></span></p>

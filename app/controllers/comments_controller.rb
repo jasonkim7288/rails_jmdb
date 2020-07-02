@@ -2,10 +2,10 @@ class CommentsController < ApplicationController
   before_action :set_comment, only: [:destroy]
 
   def create
-    puts "***************"
-    p comment_params
     @movie = Movie.find(params[:movie_id])
-    @movie.comments.create(comment_params)
+    comment = @movie.comments.new(comment_params)
+    comment.user_id = current_user.id
+    comment.save
     redirect_to @movie
   end
 
