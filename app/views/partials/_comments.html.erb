@@ -1,5 +1,3 @@
-<%= render 'partials/comment_form', movie: movie, comment: comment%>
-
 <div class="row justify-content-center">
   <% comments.each do |cmt| %>
     <% if cmt.id %>
@@ -11,11 +9,11 @@
           <p class="card-text">
             <%# if the comment is edit mode, create a form for that, else just show the body  %>
             <% if user_signed_in? && current_user.id == cmt.user.id && @edit_mode == cmt.id %>
-              <%= form_with model: [cmt.movie, cmt],
+              <%= form_with model: [movie, cmt],
                 data: { reflex: "submit->MoviesReflex#submit", comment_id: cmt.id } do |form|
               %>
                 <div class="form-group">
-                  <%= form.text_area :body, placeholder: "Enter your message", class: "form-control", row: 3 %>
+                  <%= form.text_area :body, placeholder: "Enter your message", class: "form-control", id: "comment-#{cmt.id}", row: 3 %>
                 </div>
 
                 <div class="actions">
@@ -39,7 +37,7 @@
                     class: "text-success mr-3" do %>
                   <i class="far fa-edit"></i>
                 <% end %>
-                <%= link_to [cmt.movie, cmt],
+                <%= link_to [movie, cmt],
                     method: :delete,
                     class: "text-danger",
                     style: "font-size: 1.5em",

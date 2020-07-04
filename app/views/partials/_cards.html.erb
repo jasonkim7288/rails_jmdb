@@ -15,7 +15,11 @@
             <%# if user signed in, show the watch list to toggle. If not, link to the login page %>
             <% if user_signed_in? %>
               <%= link_to "#", data: { reflex: "click->MoviesReflex#add_to_watchlist", user_id: current_user.id, movie_id: movie.id }, class: "icon-shadow" do %>
-                <div class="text-center fade-effect" style="font-size: 2.5em;" data-toggle="tooltip" data-placement="top" title="<%= (user_signed_in? && current_user.movies.find_by_id(movie.id)) ? "Click to remove from Watchlist" : "Click to add to Watchlist"%>" >
+                <div class="text-center fade-effect"
+                    style="font-size: 2.5em; color: #FFFFFFC0"
+                    data-toggle="tooltip"
+                    data-placement="top"
+                    title="<%= (user_signed_in? && current_user.movies.find_by_id(movie.id)) ? "Click to remove from Watchlist" : "Click to add to Watchlist"%>" >
                   <i class="<%= (user_signed_in? && current_user.movies.find_by_id(movie.id)) ? "fas" : "far" %> fa-bookmark"></i>
                 </div>
               <% end %>

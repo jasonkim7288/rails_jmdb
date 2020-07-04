@@ -64,5 +64,6 @@
     </div>
   </div>
 
-  <%= render 'partials/comments', movie: @movie, comments: @comments, comment: @comment%>
+  <%= render 'partials/comment_form', movie: @movie, comment: @comment%>
+  <%= render 'partials/comments', movie: @movie, comments: @comments%>
 </div>

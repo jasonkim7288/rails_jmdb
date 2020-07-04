@@ -1,6 +1,7 @@
 class MoviesController < ApplicationController
   before_action :authenticate_user!, only: [:mymovies]
   before_action :set_movie, only: [:show, :edit, :update, :destroy]
+  before_action :log_comment
 
   CAROUSEL_NUM = 5
 
@@ -81,7 +82,7 @@ class MoviesController < ApplicationController
 
   def show
     @comment = Comment.new
-    @comments = @movie.comments.order("updated_at DESC")
+    @comments = @movie.comments.order("created_at DESC")
     @watchlist_added = (user_signed_in? && current_user.movies.find_by_id(@movie.id)) ? true : false
   end
 
@@ -109,4 +110,9 @@ class MoviesController < ApplicationController
     @movie = Movie.find_by_id(params[:id])
   end
 
+  def log_comment
+    puts "-----------------------"
+    puts controller_name + action_name
+    puts "-----------------------"
+  end
 end
