@@ -9,11 +9,37 @@
             <span class="text-info"><%= cmt.user.full_name %></span> <span class="font-weight-light ml-5" style="font-size: 0.9em"><%= cmt.created_at.strftime('%d/%m/%Y %l:%M %p') %></span>
           </h6>
           <p class="card-text">
-            <%= cmt.body %>
+            <%# if the comment is edit mode, create a form for that, else just show the body  %>
+            <% if user_signed_in? && current_user.id == cmt.user.id && @edit_mode == cmt.id %>
+              <%= form_with model: [cmt.movie, cmt],
+                data: { reflex: "submit->MoviesReflex#submit", comment_id: cmt.id } do |form|
+              %>
+                <div class="form-group">
+                  <%= form.text_area :body, placeholder: "Enter your message", class: "form-control", row: 3 %>
+                </div>
+
+                <div class="actions">
+                  <%= form.submit class: "btn btn-sm btn-success" %>
+                  <%= link_to 'Cancel', "#",
+                    data: { reflex: "click->MoviesReflex#cancel_edit" },
+                    class: "btn btn-sm btn-secondary"
+                  %>
+                </div>
+              <% end %>
+            <%# just show the body %>
+            <% else %>
+              <%= cmt.body %>
+            <% end %>
           </p>
           <% if user_signed_in? && current_user.id == cmt.user.id %>
             <p class="text-right mb-0">
-              <%= link_to 'Delete', [cmt.movie, cmt], method: :delete, class: "text-danger", data: { confirm: 'Are you sure?' } %>
+              <% if @edit_mode != cmt.id %>
+                <%= link_to 'Edit', "#",
+                  data: { reflex: "click->MoviesReflex#edit", comment_id: cmt.id },
+                  class: "text-success"
+                %>
+                <%= link_to 'Delete', [cmt.movie, cmt], method: :delete, class: "text-danger", data: { confirm: 'Are you sure?' } %>
+              <% end %>
             </p>
           <% end %>
         </div>
