@@ -34,11 +34,18 @@
           <% if user_signed_in? && current_user.id == cmt.user.id %>
             <p class="text-right mb-0">
               <% if @edit_mode != cmt.id %>
-                <%= link_to 'Edit', "#",
-                  data: { reflex: "click->MoviesReflex#edit", comment_id: cmt.id },
-                  class: "text-success"
-                %>
-                <%= link_to 'Delete', [cmt.movie, cmt], method: :delete, class: "text-danger", data: { confirm: 'Are you sure?' } %>
+                <%= link_to "#", data: { reflex: "click->MoviesReflex#edit", comment_id: cmt.id },
+                    style: "font-size: 1.5em",
+                    class: "text-success mr-3" do %>
+                  <i class="far fa-edit"></i>
+                <% end %>
+                <%= link_to [cmt.movie, cmt],
+                    method: :delete,
+                    class: "text-danger",
+                    style: "font-size: 1.5em",
+                    data: { confirm: 'Are you sure?' } do %>
+                  <i class="far fa-trash-alt"></i>
+                <% end %>
               <% end %>
             </p>
           <% end %>
