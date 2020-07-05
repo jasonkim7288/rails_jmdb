@@ -55,11 +55,15 @@
       <p><strong>Director : </strong><%= @movie.director %></p>
       <p><strong>Actors : </strong><%= @movie.actors %></p>
       <% if user_signed_in? %>
-        <%= link_to "#{@watchlist_added ? "Remove from Watchlist" : "+ Add to Watchlist"}", "#",
-          data: { reflex: "click->MoviesReflex#add_to_watchlist", user_id: current_user.id, movie_id: @movie.id },
-          class: "btn btn-primary" %>
+        <%= link_to "#",
+            data: { reflex: "click->MoviesReflex#add_to_watchlist", user_id: current_user.id, movie_id: @movie.id },
+            class: "btn btn-primary" do %>
+          <div data-toggle="tooltip" data-placement="top" title="<%= @watchlist_added ? "Click to remove from Watchlist" : "Click to add to Watchlist"%>">
+            <%= "#{@watchlist_added ? "Remove from Watchlist" : "+ Add to Watchlist"}" %>
+          </div>
+        <% end %>
       <% else %>
-        <%= link_to '+ Add to Watchlist', new_user_session_path, class: "btn btn-primary" %>
+        <%= link_to '+ Add to Watchlist', new_user_session_path, class: "btn btn-primary", data: {toggle: "tooltip", placement: "top"}, title: "Click to add to Watchlist" %>
       <% end %>
     </div>
   </div>
