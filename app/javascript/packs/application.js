@@ -40,7 +40,9 @@ $(document).on('turbolinks:load', function() {
   })
 
   $('#link-rate').on('click', function(event) {
-    let rating = parseInt($('#link-rate').data('rating')) // Extract info from data-* attributes
+    // the below method didn't work after the second modal poped up, so changed the way to get the value by getting value from hidden input
+    // let rating = parseInt($('#link-rate').data('rating')) // Extract info from data-* attributes
+    let rating = parseInt($('#rating').val()) // Extract info from data-* attributes
     console.log('rating:', rating)
 
     let currentStar = rating === 0 ? document.getElementById('1') : document.getElementById(`${rating}`)

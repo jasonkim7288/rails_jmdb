@@ -27,7 +27,8 @@
         <%# display user rating %>
         <div class="col-6 col-lg-2" style="font-size: 2em" >
           <% if user_signed_in? %>
-            <%= link_to "#", class: "", id: "link-rate", data: { toggle: "modal", target: "#rateModal", rating: "#{@rating ? @rating.user_rating : 0}" } do %>
+            <input type="hidden" id="rating" name="rating" value="<%= @rating ? @rating.user_rating : 0 %>" />
+            <%= link_to "#", class: "", id: "link-rate", data: { toggle: "modal", target: "#rateModal" } do %>
               <% if @rating %>
                 <span><i class="fas fa-star mr-2 text-warning"></i></span><span><%= @rating.user_rating %></span>
               <% else %>
