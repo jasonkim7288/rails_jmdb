@@ -8,7 +8,7 @@
       <div class="col-2 col-lg-1">
         <%= link_to "#", data: { reflex: "click->MoviesReflex#add_to_watchlist", user_id: current_user.id, movie_id: movie.id } do %>
           <div class="text-center fade-effect" style="font-size: 3em" data-toggle="tooltip" data-placement="top" title="Click to remove from Watchlist" >
-            <i class="<%= current_user.movies.find_by_id(movie.id) == nil ? "far" : "fas"%> fa-bookmark"></i>
+            <i class="fas fa-bookmark"></i>
           </div>
         <% end %>
       </div>
@@ -22,8 +22,10 @@
             <span><i class="fas fa-star mr-2 text-warning"></i></span><span><%= movie.imdb_rating %></span>
           <% end %>
           <div class="col-6 col-lg-2" style="font-size: 2em" >
-            <%= link_to "#", class: "fade-effect" do %>
-              <span><i class="far fa-star mr-2 text-warning"></i></span><span class="align-middle" style="font-size: 0.5em">Rate this</span>
+            <% if user_signed_in? && movie.ratings.find_by(user_id: current_user.id) %>
+              <span><i class="fas fa-star mr-2 text-warning"></i></span><span><%= movie.ratings.find_by(user_id: current_user.id).user_rating %></span>
+            <% else %>
+              <span><i class="far fa-star mr-2 text-warning"></i></span><span class="align-middle" style="font-size: 0.5em">Not rated</span>
             <% end %>
           </div>
         </div>
