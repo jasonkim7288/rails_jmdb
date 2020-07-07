@@ -81,9 +81,15 @@ class MoviesController < ApplicationController
   end
 
   def show
+    redirect_to movies_path if !@movie
     @comment = Comment.new
     @comments = @movie.comments.order("created_at DESC")
     @watchlist_added = (user_signed_in? && current_user.movies.find_by_id(@movie.id)) ? true : false
+    if user_signed_in?
+      @rating = @movie.ratings.find_by(user_id: current_user.id)
+    else
+      @rating = nil
+    end
   end
 
   def edit

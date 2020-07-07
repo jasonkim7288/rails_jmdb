@@ -17,3 +17,51 @@ require("channels")
 // const imagePath = (name) => images(name, true)
 
 import "controllers"
+
+$(document).on('turbolinks:load', function() {
+  $('.star-input').click(function() {
+    $(this).parent()[0].reset();
+    let prevStars = $(this).prevAll();
+    let nextStars = $(this).nextAll();
+    prevStars.attr('checked',true);
+    nextStars.attr('checked',false);
+    $(this).attr('checked',true);
+    $(document.getElementById("star-value")).val($(this).attr('id'))
+  });
+
+  $('.star-input-label').on('mouseover',function() {
+    let prevStars = $(this).prevAll();
+    prevStars.addClass('hovered');
+  });
+
+  $('.star-input-label').on('mouseout',function(){
+    let prevStars = $(this).prevAll();
+    prevStars.removeClass('hovered');
+  })
+
+  $('#rateModal').on('show.bs.modal', function (event) {
+    let rating = parseInt($(document.getElementById('link-rate')).data('rating')) // Extract info from data-* attributes
+    console.log('rating:', rating)
+
+    let currentStar = rating === 0 ? document.getElementById('1') : document.getElementById(`${rating}`)
+    $(currentStar).parent()[0].reset();
+    let prevStars = $(currentStar).prevAll();
+    let nextStars = $(currentStar).nextAll();
+    prevStars.attr('checked',true);
+    nextStars.attr('checked',false);
+    $(currentStar).attr('checked', rating === 0 ? false : true);
+
+    $(document.getElementById("star-value")).val(rating.toString())
+
+    // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+    // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+    // var modal = $(this)
+    // modal.find('.modal-title').text('New message to ' + recipient)
+    // modal.find('.modal-body input').val(recipient)
+  });
+
+  $('#rateModal').on('hidden.bs.modal', function (event) {
+    console.log("dispose");
+    $('#rateModal').modal('dispose')
+  });
+});

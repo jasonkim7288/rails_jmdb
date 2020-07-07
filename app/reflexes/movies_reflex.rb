@@ -26,6 +26,16 @@ class MoviesReflex < ApplicationReflex
     clear_edit_mode
   end
 
+  def rate
+    current_user_id = element.dataset[:user_id]
+    current_movie_id = element.dataset[:movie_id]
+    @rating = Rating.find_or_initialize_by(user_id: current_user_id, movie_id: current_movie_id)
+    @rating.user_rating = params[:star_value].to_i
+    if !@rating.save
+      redirect_to movie_path(current_movie_id)
+    end
+  end
+
   private
     def clear_edit_mode
       @edit_mode = nil

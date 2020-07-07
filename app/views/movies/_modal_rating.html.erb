@@ -1,0 +1,52 @@
+<div class="modal fade" id="rateModal" tabindex="-1" role="dialog" aria-labelledby="rateModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content bg-dark">
+      <div class="modal-header">
+        <h5 class="modal-title" id="rateModalLabel">Rate this movie</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form class="rating-widget" id="rating-widget" data-reflex="submit->MoviesReflex#rate" data-user-id="<%= current_user.id%>" data-movie-id="<%= movie.id %>">
+          <input type="hidden" id="star-value" name="star_value" value="0" >
+          <% (1..10).each do |num| %>
+            <input type="checkbox" class="star-input" id="<%= num %>"/>
+            <label class="star-input-label" for="<%= num %>"><%= num %>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star orange"></i>
+            </label>
+          <% end %>
+          <br />
+          <button type="submit" class="btn btn-primary">Rate this!</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!--
+
+Copyright (c) YEAR - YOUR NAME - URL TO ORIGINAL
+
+Permission is hereby granted, free of charge, to any person
+obtaining a copy of this software and associated documentation
+files (the "Software"), to deal in the Software without restriction,
+ including without limitation the rights to use, copy, modify,
+merge, publish, distribute, sublicense, and/or sell copies of
+the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall
+be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+DEALINGS IN THE SOFTWARE.
+
+-->

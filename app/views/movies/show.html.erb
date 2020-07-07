@@ -1,5 +1,5 @@
 <div class="container top-margin" style="background: #202020;">
-  <%# add favourite, title, rating, etc %>
+  <%# add watchlist, title, rating, etc %>
   <div class="row pt-3">
     <div class="col-2 col-lg-1">
       <% if user_signed_in? %>
@@ -16,15 +16,28 @@
     </div>
     <div class="col-10 col-lg-11">
       <div class="row">
+        <%# display title %>
         <div class="col-12 col-lg-8">
           <h1><%= @movie.title %></h1>
         </div>
+        <%# display imdb rating %>
         <div class="col-6 col-lg-2" style="font-size: 2em" >
           <span><i class="fas fa-star mr-2 text-warning"></i></span><span><%= @movie.imdb_rating %></span>
         </div>
+        <%# display user rating %>
         <div class="col-6 col-lg-2" style="font-size: 2em" >
-          <%= link_to "#", class: "fade-effect" do %>
-            <span><i class="far fa-star mr-2 text-warning"></i></span><span class="align-middle" style="font-size: 0.5em">Rate this</span>
+          <% if user_signed_in? %>
+            <%= link_to "#", class: "fade-effect", id: "link-rate", data: { toggle: "modal", target: "#rateModal", rating: "#{@rating ? @rating.user_rating : 0}" } do %>
+              <% if @rating %>
+                <span><i class="fas fa-star mr-2 text-warning"></i></span><span><%= @rating.user_rating %></span>
+              <% else %>
+                <span><i class="far fa-star mr-2 text-warning"></i></span><span class="align-middle" style="font-size: 0.5em">Rate this</span>
+              <% end %>
+            <% end %>
+          <% else %>
+            <%= link_to new_user_session_path, class: "fade-effect" do %>
+              <span><i class="far fa-star mr-2 text-warning"></i></span><span class="align-middle" style="font-size: 0.5em">Rate this</span>
+            <% end %>
           <% end %>
         </div>
       </div>
@@ -70,4 +83,7 @@
 
   <%= render 'partials/comment_form', movie: @movie, comment: @comment%>
   <%= render 'partials/comments', movie: @movie, comments: @comments%>
+  <% if user_signed_in? %>
+    <%= render 'modal_rating', movie: @movie %>
+  <% end %>
 </div>
