@@ -67,7 +67,7 @@ class MoviesController < ApplicationController
   end
 
   def index
-    @movies = Movie.all.order("imdb_rating DESC")
+    @movies = Movie.all.order("imdb_rating DESC").paginate(page: params[:page], per_page: 12)
     # pick up 15 random(for now) movies and use them for Carousel
     if @movies.count >= CAROUSEL_NUM * 3
       random_movies_total = Movie.all.order("RANDOM()").limit(CAROUSEL_NUM * 3)

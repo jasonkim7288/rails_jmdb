@@ -39,8 +39,8 @@ $(document).on('turbolinks:load', function() {
     prevStars.removeClass('hovered');
   })
 
-  $('#rateModal').on('show.bs.modal', function (event) {
-    let rating = parseInt($(document.getElementById('link-rate')).data('rating')) // Extract info from data-* attributes
+  $('#link-rate').on('click', function(event) {
+    let rating = parseInt($('#link-rate').data('rating')) // Extract info from data-* attributes
     console.log('rating:', rating)
 
     let currentStar = rating === 0 ? document.getElementById('1') : document.getElementById(`${rating}`)
@@ -52,16 +52,12 @@ $(document).on('turbolinks:load', function() {
     $(currentStar).attr('checked', rating === 0 ? false : true);
 
     $(document.getElementById("star-value")).val(rating.toString())
-
-    // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-    // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-    // var modal = $(this)
-    // modal.find('.modal-title').text('New message to ' + recipient)
-    // modal.find('.modal-body input').val(recipient)
   });
 
-  $('#rateModal').on('hidden.bs.modal', function (event) {
-    console.log("dispose");
-    $('#rateModal').modal('dispose')
+  $('#rating-widget').on('submit', function(event) {
+    event.preventDefault();
+    setTimeout(function() {$('#rateModal').modal('dispose')}, 500);
+    console.log("Hi")
   });
+
 });

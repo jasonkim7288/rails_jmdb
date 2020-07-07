@@ -1,5 +1,13 @@
 <div class="main-width mx-auto px-3">
   <h1 class='my-5 text-warning text-weight-bold'><%= title %></h1>
+
+  <%# pagination %>
+  <% if action_name == "index" %>
+    <div class="d-flex justify-content-center">
+      <%= will_paginate @movies, renderer: WillPaginate::ActionView::BootstrapLinkRenderer, inner_window: 4, id: "movie-page" %>
+    </div>
+  <% end %>
+
   <% if !movies || movies == [] %>
     <h2 class='my-5 text-center'>No results</h2>
   <% else %>
