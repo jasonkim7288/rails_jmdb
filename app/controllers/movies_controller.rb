@@ -68,6 +68,7 @@ class MoviesController < ApplicationController
 
   def index
     @movies = Movie.all.order("imdb_rating DESC").paginate(page: params[:page], per_page: 12)
+
     # pick up 15 random(for now) movies and use them for Carousel
     if @movies.count >= CAROUSEL_NUM * 3
       random_movies_total = Movie.all.order("RANDOM()").limit(CAROUSEL_NUM * 3)
@@ -77,6 +78,12 @@ class MoviesController < ApplicationController
       end
     else
       @random_movies = nil
+    end
+
+    # calculate average rating for each movie
+    @avg_ratings = {}
+    @movies.each do |movie|
+      @avg_ratings[movie.id] = calculate_avg_rating(movie)
     end
   end
 
@@ -90,15 +97,9 @@ class MoviesController < ApplicationController
     else
       @rating = nil
     end
-  end
 
-  def edit
-  end
-
-  def create
-  end
-
-  def update
+    # calculate average rating for each movie
+    @avg_rating = calculate_avg_rating(@movie)
   end
 
   def destroy
@@ -108,6 +109,13 @@ class MoviesController < ApplicationController
 
   def mymovies
     @movies = current_user.movies.order("created_at DESC")
+
+    # calculate average rating for each movie
+    @avg_ratings = {}
+    @movies.each do |movie|
+      @avg_ratings[movie.id] = calculate_avg_rating(movie)
+    end
+
   end
 
   private
@@ -120,5 +128,11 @@ class MoviesController < ApplicationController
     puts "-----------------------"
     puts controller_name + action_name
     puts "-----------------------"
+  end
+
+  # calculate average rating including imdb rating and user ratings
+  def calculate_avg_rating(movie)
+    total_user_rating = movie.ratings.inject(0) {|result, rating| result + rating.user_rating}
+    return ((movie.imdb_rating + total_user_rating) / (movie.ratings.count + 1)).round(1)
   end
 end

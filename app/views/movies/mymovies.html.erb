@@ -15,15 +15,30 @@
 
       <div class="col-10 col-lg-11">
         <div class="row">
+          <%# display title %>
           <%= link_to movie, class: "col-12 col-lg-8" do%>
             <h3><%= movie.title %></h3>
           <% end %>
+
+          <%# display average rating %>
           <%= link_to movie, class: "col-6 col-lg-2", style: "font-size: 2em"  do%>
-            <span><i class="fas fa-star mr-2 text-warning"></i></span><span><%= movie.imdb_rating %></span>
+            <div class="row">
+              <div class="col-6"><i class="fas fa-star mr-2 text-warning"></i></div>
+              <div class="col-6 px-lg-0">
+                <div class="row mt-1" style="font-size: 0.7rem">JMDb</div>
+                <div class="row mt-n2" style="font-size: 1.7rem"><%= @avg_ratings[movie.id] %></div>
+              </div>
+            </div>
           <% end %>
-          <div class="col-6 col-lg-2" style="font-size: 2em" >
+          <div class="col-6 col-lg-2" style="font-size: 2rem" >
             <% if user_signed_in? && movie.ratings.find_by(user_id: current_user.id) %>
-              <span><i class="fas fa-star mr-2 text-warning"></i></span><span><%= movie.ratings.find_by(user_id: current_user.id).user_rating %></span>
+              <div class="row">
+                <div class="col-6"><i class="fas fa-star mr-2 text-warning"></i></div>
+                <div class="col-6 px-lg-0">
+                  <div class="row mt-1" style="font-size: 0.7rem">You</div>
+                  <div class="row mt-n2" style="font-size: 1.7rem"><%= movie.ratings.find_by(user_id: current_user.id).user_rating %></div>
+                </div>
+              </div>
             <% else %>
               <span><i class="far fa-star mr-2 text-warning"></i></span><span class="align-middle" style="font-size: 0.5em">Not rated</span>
             <% end %>

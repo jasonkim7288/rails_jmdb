@@ -20,17 +20,29 @@
         <div class="col-12 col-lg-8">
           <h1><%= @movie.title %></h1>
         </div>
-        <%# display imdb rating %>
-        <div class="col-6 col-lg-2" style="font-size: 2em" >
-          <span><i class="fas fa-star mr-2 text-warning"></i></span><span><%= @movie.imdb_rating %></span>
+        <%# display average rating %>
+        <div class="col-6 col-lg-2" style="font-size: 2rem">
+          <div class="row">
+            <div class="col-6"><i class="fas fa-star mr-2 text-warning"></i></div>
+            <div class="col-6 px-lg-0">
+              <div class="row mt-1" style="font-size: 0.7rem">JMDb</div>
+              <div class="row mt-n2" style="font-size: 1.7rem"><%= @avg_rating %></div>
+            </div>
+          </div>
         </div>
         <%# display user rating %>
-        <div class="col-6 col-lg-2" style="font-size: 2em" >
+        <div class="col-6 col-lg-2" style="font-size: 2rem">
           <% if user_signed_in? %>
             <input type="hidden" id="rating" name="rating" value="<%= @rating ? @rating.user_rating : 0 %>" />
-            <%= link_to "#", class: "", id: "link-rate", data: { toggle: "modal", target: "#rateModal" } do %>
+            <%= link_to "#", class: "fade-effect", id: "link-rate", data: { toggle: "modal", target: "#rateModal" } do %>
               <% if @rating %>
-                <span><i class="fas fa-star mr-2 text-warning"></i></span><span><%= @rating.user_rating %></span>
+                <div class="row fade-effect">
+                  <div class="col-6"><i class="fas fa-star mr-2 text-warning"></i></div>
+                  <div class="col-6 px-lg-0">
+                    <div class="row mt-1" style="font-size: 0.7rem">You</div>
+                    <div class="row mt-n2" style="font-size: 1.7rem"><%= @rating.user_rating %></div>
+                  </div>
+                </div>
               <% else %>
                 <span><i class="far fa-star mr-2 text-warning"></i></span><span class="align-middle" style="font-size: 0.5em">Rate this</span>
               <% end %>
