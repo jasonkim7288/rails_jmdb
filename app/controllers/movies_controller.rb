@@ -67,6 +67,10 @@ class MoviesController < ApplicationController
   end
 
   def index
+    puts "***************************"
+    puts Rails.application.credentials.dig(:jason_key)
+    puts "***************************"
+
     @movies = Movie.all.order("imdb_rating DESC").paginate(page: params[:page], per_page: 12)
 
     # pick up 15 random(for now) movies and use them for Carousel

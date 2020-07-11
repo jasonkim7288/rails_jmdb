@@ -45,11 +45,13 @@
               <% end %>
 
               <%# display delete icon only for the admin users %>
-              <%= link_to movie,
-                  method: :delete,
-                  class: "text-danger delete-movie",
-                  width: 300 do %>
-                  <i class="far fa-trash-alt"></i>
+              <% if user_signed_in? && (current_user.has_role? :admin) %>
+                <%= link_to movie,
+                    method: :delete,
+                    class: "text-danger delete-movie",
+                    width: 300 do %>
+                    <i class="far fa-trash-alt"></i>
+                <% end %>
               <% end %>
             </div>
           </div>

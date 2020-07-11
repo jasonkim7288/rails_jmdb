@@ -56,3 +56,4 @@ gem 'will_paginate-bootstrap4'
 gem 'devise'
 gem "stimulus_reflex", "~> 3.2"
 gem 'will_paginate-bootstrap4'
+gem 'rolify'
