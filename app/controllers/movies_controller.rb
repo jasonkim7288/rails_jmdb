@@ -69,18 +69,18 @@ class MoviesController < ApplicationController
   end
 
   def index
-    puts "***************************"
-    puts Rails.application.credentials.dig(:jason_key)
-    puts "***************************"
-
     @movies = Movie.all.order("imdb_rating DESC").paginate(page: params[:page], per_page: 12)
 
     # pick up 15 random(for now) movies and use them for Carousel
+    @avg_ratings_random = {}
     if @movies.count >= CAROUSEL_NUM * 3
       random_movies_total = Movie.all.order("RANDOM()").limit(CAROUSEL_NUM * 3)
       @random_movies = Array.new(3) {Array.new(CAROUSEL_NUM)}
       random_movies_total.each_slice(CAROUSEL_NUM).with_index do |mvs, i|
         @random_movies[i] = mvs
+        mvs.each do |mv|
+          @avg_ratings_random[mv.id] = calculate_avg_rating(mv)
+        end
       end
     else
       @random_movies = nil
