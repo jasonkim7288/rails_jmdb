@@ -19,6 +19,7 @@ class MoviesController < ApplicationController
     json_result = JSON.parse(response.body, { symbolized_names: true})
 
     @movies = []
+    @avg_ratings = {}
     if json_result["Response"] == "True"
       result_movies = [*json_result["Search"]]
       result_movies.each do |result_movie|
@@ -61,6 +62,7 @@ class MoviesController < ApplicationController
           movie.save
         end
         # for display
+        @avg_ratings[movie.id] = calculate_avg_rating(movie)
         @movies.push(movie)
       end
     end
