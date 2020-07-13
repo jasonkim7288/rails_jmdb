@@ -71,12 +71,12 @@
       </div>
     </div>
   </div>
-  <%# add poster, %>
+  <%# add poster, plot, director, actors, and watchlist add button %>
   <div class="row">
-    <div class="col-3 px-0">
+    <div class="col-12 col-sm-3 px-0">
       <%= image_tag @movie.poster, class:"w-100"%>
     </div>
-    <div class="col-9 px-4">
+    <div class="col-12 col-sm-9 px-4">
       <p style="font-size: 1.1em"><%= @movie.plot %></p>
       <p><strong>Director : </strong><%= @movie.director %></p>
       <p><strong>Actors : </strong><%= @movie.actors %></p>
