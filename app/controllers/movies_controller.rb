@@ -1,5 +1,5 @@
 class MoviesController < ApplicationController
-  before_action :authenticate_user!, only: [:mymovies]
+  before_action :authenticate_user!, only: [:mymovies, :myratings]
   before_action :set_movie, only: [:show, :edit, :update, :destroy]
   before_action :log_comment
 
@@ -115,30 +115,55 @@ class MoviesController < ApplicationController
 
   def mymovies
     @movies = current_user.movies.order("created_at DESC")
+    set_ratings
+    set_watchlist_addeds
+  end
 
-    # calculate average rating for each movie
-    @avg_ratings = {}
-    @movies.each do |movie|
-      @avg_ratings[movie.id] = calculate_avg_rating(movie)
+  def myratings
+    @movies = []
+    ratings = current_user.ratings.order("created_at DESC")
+    ratings.each do |rating|
+      @movies.push rating.movie
     end
-
+    set_ratings
+    set_watchlist_addeds
   end
 
   private
-  # Use callbacks to share common setup or constraints between actions.
-  def set_movie
-    @movie = Movie.find_by_id(params[:id])
-  end
+    # Use callbacks to share common setup or constraints between actions.
+    def set_movie
+      @movie = Movie.find_by_id(params[:id])
+    end
 
-  def log_comment
-    puts "-----------------------"
-    puts controller_name + action_name
-    puts "-----------------------"
-  end
+    def log_comment
+      puts "-----------------------"
+      puts controller_name + action_name
+      puts "-----------------------"
+    end
 
-  # calculate average rating including imdb rating and user ratings
-  def calculate_avg_rating(movie)
-    total_user_rating = movie.ratings.inject(0) {|result, rating| result + rating.user_rating}
-    return ((movie.imdb_rating + total_user_rating) / (movie.ratings.count + 1)).round(1)
-  end
+    # calculate average rating including imdb rating and user ratings
+    def calculate_avg_rating(movie)
+      total_user_rating = movie.ratings.inject(0) {|result, rating| result + rating.user_rating}
+      return ((movie.imdb_rating + total_user_rating) / (movie.ratings.count + 1)).round(1)
+    end
+
+    def set_ratings
+      # calculate average rating for each movie
+      @avg_ratings = {}
+      @movies.each do |movie|
+        @avg_ratings[movie.id] = calculate_avg_rating(movie)
+      end
+    end
+
+    def set_watchlist_addeds
+      # calculate average rating for each movie
+      @watchlist_addeds = {}
+      @movies.each do |movie|
+        @watchlist_addeds[movie.id] = current_user.movies.find_by_id(movie.id) ? true : false
+      end
+
+      puts "------------------------"
+      p @watchlist_addeds
+      puts "------------------------"
+    end
 end

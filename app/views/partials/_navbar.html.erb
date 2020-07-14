@@ -29,7 +29,7 @@
                     </a>
                     <div class="dropdown-menu dropdown-dark" aria-labelledby="navbarDropdown">
                         <%= link_to 'My Movies', movies_mymovies_path, class: "dropdown-item dropdown-dark" %>
-                        <%= link_to 'My Ratings', "#", class: "dropdown-item dropdown-dark" %>
+                        <%= link_to 'My Ratings', movies_myratings_path, class: "dropdown-item dropdown-dark" %>
                         <div class="dropdown-divider"></div>
                         <%= link_to 'Log out', destroy_user_session_path, method: :delete, class: "dropdown-item" %>
                     </div>
