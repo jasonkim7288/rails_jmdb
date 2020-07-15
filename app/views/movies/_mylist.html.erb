@@ -31,12 +31,12 @@
             </div>
           <% end %>
           <div class="col-6 col-lg-2" style="font-size: 2rem" >
-            <% if user_signed_in? && movie.ratings.find_by(user_id: current_user.id) %>
+            <% if user_signed_in? && @movie_rating_current_user[movie.id] %>
               <div class="row">
                 <div class="col-6"><i class="fas fa-star mr-2 text-warning"></i></div>
                 <div class="col-6 px-lg-0">
                   <div class="row mt-1" style="font-size: 0.7rem">You</div>
-                  <div class="row mt-n2" style="font-size: 1.7rem"><%= movie.ratings.find_by(user_id: current_user.id).user_rating %></div>
+                  <div class="row mt-n2" style="font-size: 1.7rem"><%= @movie_rating_current_user[movie.id].user_rating %></div>
                 </div>
               </div>
             <% else %>
