@@ -148,7 +148,7 @@ class MoviesController < ApplicationController
       @watchlist_addeds = {}
       @avg_ratings = {}
       @movie_rating_current_user = {}
-      @movies.each do |movie|
+      @movies.preload(:users).each do |movie|
         # check if each movie is watchlist added
         # @watchlist_addeds[movie.id] = movie.users.find_by_id(current_user.id) ? true : false
         @watchlist_addeds[movie.id] = movie.users.filter{|user| user.id == current_user.id} != [] ? true : false
@@ -163,6 +163,6 @@ class MoviesController < ApplicationController
     # calculate average rating including imdb rating and user ratings
     def calculate_avg_rating(movie)
       total_user_rating = movie.ratings.inject(0) {|result, rating| result + rating.user_rating}
-      return ((movie.imdb_rating + total_user_rating) / (movie.ratings.count + 1)).round(1)
+      return ((movie.imdb_rating + total_user_rating) / (movie.ratings.length + 1)).round(1)
     end
 end
